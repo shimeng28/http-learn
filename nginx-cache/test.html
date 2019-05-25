@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="Content-Security-Policy" content="default-src 'self'" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div>this is content data is : <span id="data"></span></div>
+    <button id="click">click</button>
+    <script>
+      var index = 0;
+      function doRequest() {
+        fetch('/data', {
+          headers: {
+            'X-Test-Cache': index++
+          }
+        }).then(res => {
+          return res.text();
+        }).then(text => {
+          document.getElementById('data').innerHTML = text;
+        })
+      }
+      document.getElementById('click').onclick = doRequest;
+
+    </script>
+  </body>
+</html>
